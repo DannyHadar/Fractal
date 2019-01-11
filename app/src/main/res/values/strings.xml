@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">FractalMvp</string>
+    <string name="spinner_fill_empty">Fill/Empty</string>
+    <string name="fractal_type">Fractal type:</string>
+    <string name="resolution">Resolution</string>
+
+    <string name="circle">Circle</string>
+    <string name="square">Square</string>
+    <string name="draw">Draw</string>
+    <string name="color">Color:</string>
+
+    <string-array name="shapes_array">
+        <item>@string/circle</item>
+        <item>@string/square</item>
+    </string-array>
+
+    <string-array name="colors_array">
+        <item>"Black"</item>
+        <item>"Blue"</item>
+        <item>"Red"</item>
+        <item>"Yellow"</item>
+        <item>"Green"</item>
+    </string-array>
+</resources>
