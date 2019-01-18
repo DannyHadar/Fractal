@@ -24,7 +24,6 @@ public class TriangleFractal extends FractalPainter {
         y[1] = y[0];
 
         drawFractal(c, x, y, width, height);
-//        drawFractal(c, points, width);
     }
 
     private void drawTriangle(Canvas c, int[] x, int[] y) {
@@ -32,7 +31,7 @@ public class TriangleFractal extends FractalPainter {
         c.drawLine(x[2], y[2], x[1], y[1], mPaint);
         c.drawLine(x[0], y[0], x[2], y[2], mPaint);
     }
-//
+
     private void drawFractal(Canvas c, int[] x, int[] y, int width, int height) {
         int newWidth = width / 2;
         int newHeight = height / 2;
@@ -75,26 +74,4 @@ public class TriangleFractal extends FractalPainter {
             drawFractal(c, dX[1], dY[1], newWidth, newHeight);
         }
     }
-//
-//    private int lineSize(int y1, int y2, int x1, int x2) {
-//        return (y1 - y2) / (x1 - x2);
-//    }
-//
-//    private void drawCircle(Canvas c, int cX, int cY, int radius) {
-//        int newRadius = radius / 2;
-//        int radiusAndNewRadius = radius + newRadius;
-//
-//        if (mShapesDrawnCounter < mShapesDrawnLimit && newRadius > mResolution) {
-//            c.drawCircle(cX, cY, radius, mPaint);
-//            mShapesDrawnCounter++;
-//            // left circle
-//            drawCircle(c, cX - radiusAndNewRadius, cY, newRadius);
-//            // top circle
-//            drawCircle(c, cX, cY - radiusAndNewRadius, newRadius);
-//            // right circle
-//            drawCircle(c, cX + radiusAndNewRadius, cY, newRadius);
-//            // bottom circle
-//            drawCircle(c, cX, cY + radiusAndNewRadius, newRadius);
-//        }
-//    }
 }
