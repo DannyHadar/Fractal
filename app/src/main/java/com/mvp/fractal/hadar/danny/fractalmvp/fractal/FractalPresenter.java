@@ -5,14 +5,13 @@ import android.graphics.Paint;
 import android.os.AsyncTask;
 
 import com.mvp.fractal.hadar.danny.fractalmvp.AbsPresenter;
+import com.mvp.fractal.hadar.danny.fractalmvp.fractal.painters.FractalPainter;
+import com.mvp.fractal.hadar.danny.fractalmvp.fractal.painters.FractalPainterFactory;
 
 import java.util.HashMap;
 
 public class FractalPresenter extends AbsPresenter<FractalContract.View> implements FractalContract.Presenter {
-    private static final String FRACTAL_TYPE_SQUARE = "Square";
-    private static final String FRACTAL_TYPE_CIRCLE = "Circle";
-
-    static final int MIN_RES = 3;
+    public static final int MIN_RES = 3;
 
     private FractalPainter mFractal;
 
@@ -36,7 +35,7 @@ public class FractalPresenter extends AbsPresenter<FractalContract.View> impleme
         Paint.Style fill = getFillStyle(fillType);
         int color = getColor(colorString);
 
-        mFractal = getFractal(shapeType, resolution, fill, color);
+        mFractal = FractalPainterFactory.getFractal(shapeType, resolution, fill, color);
 
         mView.setFractal(mFractal);
 
@@ -77,22 +76,8 @@ public class FractalPresenter extends AbsPresenter<FractalContract.View> impleme
         return fillType ? Paint.Style.FILL : Paint.Style.STROKE;
     }
 
-    private FractalPainter getFractal(String shapeType, int resolution, Paint.Style fill, int color) {
-        FractalPainter fractalPainter;
-        switch (shapeType) {
-            case FRACTAL_TYPE_CIRCLE:
-                fractalPainter = new CircleFractal(resolution, fill, color);
-                break;
-            case FRACTAL_TYPE_SQUARE:
-            default:
-                fractalPainter = new SquareFractal(resolution, fill, color);
-                break;
-        }
-        return fractalPainter;
-    }
-
     private class DrawingTask extends AsyncTask<Void, Void, Void> {
-        private static final int SLEEP_BETWEEN_DRAWING = 66;
+        private static final int SLEEP_BETWEEN_DRAWING = 50;
 
         @Override
         protected void onPreExecute() {

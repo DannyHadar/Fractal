@@ -6,12 +6,15 @@
 
     <string name="circle">Circle</string>
     <string name="square">Square</string>
+    <string name="triangle">Triangle</string>
+
     <string name="draw">Draw</string>
     <string name="color">Color:</string>
 
     <string-array name="shapes_array">
         <item>@string/circle</item>
         <item>@string/square</item>
+        <item>@string/triangle</item>
     </string-array>
 
     <string-array name="colors_array">

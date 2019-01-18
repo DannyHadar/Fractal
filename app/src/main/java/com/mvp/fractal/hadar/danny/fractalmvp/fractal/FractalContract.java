@@ -1,6 +1,7 @@
 package com.mvp.fractal.hadar.danny.fractalmvp.fractal;
 
 import com.mvp.fractal.hadar.danny.fractalmvp.BasePresenter;
+import com.mvp.fractal.hadar.danny.fractalmvp.fractal.painters.FractalPainter;
 
 public interface FractalContract {
 

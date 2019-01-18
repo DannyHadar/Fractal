@@ -1,16 +1,11 @@
-package com.mvp.fractal.hadar.danny.fractalmvp.fractal;
+package com.mvp.fractal.hadar.danny.fractalmvp.fractal.painters;
 
 import android.graphics.Canvas;
-import android.graphics.Paint;
 
 public class CircleFractal extends FractalPainter {
 
-    public CircleFractal(int resolution, Paint.Style fill, int color) {
-        super(resolution, fill, color);
-    }
-
     @Override
-    protected void drawFractal(Canvas c, int width, int height) {
+    public void drawFractal(Canvas c, int width, int height) {
         drawCircle(c, width / 2, height / 2, width / 6);
     }
 

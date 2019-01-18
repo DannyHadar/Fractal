@@ -1,16 +1,11 @@
-package com.mvp.fractal.hadar.danny.fractalmvp.fractal;
+package com.mvp.fractal.hadar.danny.fractalmvp.fractal.painters;
 
 import android.graphics.Canvas;
-import android.graphics.Paint;
 
 public class SquareFractal extends FractalPainter {
 
-    public SquareFractal(int resolution, Paint.Style fill, int color) {
-        super(resolution, fill, color);
-    }
-
     @Override
-    protected void drawFractal(Canvas c, int width, int height) {
+    public void drawFractal(Canvas c, int width, int height) {
 
         int left = width / 2 - width / 6;
         int top = height / 2 - width / 6;
@@ -26,10 +21,13 @@ public class SquareFractal extends FractalPainter {
         if (mShapesDrawnCounter < mShapesDrawnLimit && newRectSide > mResolution) {
             c.drawRect(left, top, right, bottom, mPaint);
             mShapesDrawnCounter++;
-
+            // left square
             drawSquare(c, left - newRectSide, top, left, bottom - newRectSide, newRectSide);
+            // top square
             drawSquare(c, left + newRectSide, top - newRectSide, right, top, newRectSide);
+            // right square
             drawSquare(c, right, top + newRectSide, right + newRectSide, bottom, newRectSide);
+            // bottom square
             drawSquare(c, left, bottom, right - newRectSide, bottom + newRectSide, newRectSide);
         }
     }

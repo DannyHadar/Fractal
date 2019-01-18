@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 
 import com.mvp.fractal.hadar.danny.fractalmvp.R;
+import com.mvp.fractal.hadar.danny.fractalmvp.fractal.painters.FractalPainter;
 
 public class FractalActivity extends AppCompatActivity implements FractalContract.View {
 

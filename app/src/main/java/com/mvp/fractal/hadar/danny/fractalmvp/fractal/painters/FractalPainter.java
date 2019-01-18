@@ -1,36 +1,44 @@
-package com.mvp.fractal.hadar.danny.fractalmvp.fractal;
+package com.mvp.fractal.hadar.danny.fractalmvp.fractal.painters;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public abstract class FractalPainter {
-    public static final int DEFAULT_STROKE_WIDTH = 4;
+import com.mvp.fractal.hadar.danny.fractalmvp.fractal.FractalPresenter;
 
-    protected final int mResolution;
-    protected final Paint mPaint;
+public abstract class FractalPainter {
+    private static final int DEFAULT_STROKE_WIDTH = 4;
+
+    int mResolution;
+    final Paint mPaint;
     /**
      * This stupid int holds the number of shapes drawn so far
      */
-    protected int mShapesDrawnCounter;
+    int mShapesDrawnCounter;
     /**
      * This stupid int holds the current limit for shapes to be drawn
      */
-    protected int mShapesDrawnLimit;
+    int mShapesDrawnLimit;
 
-    public FractalPainter(int resolution, Paint.Style fill, int color) {
-        mResolution = getValidResolution(resolution);
+    FractalPainter() {
         mPaint = new Paint();
         mPaint.setStrokeWidth(DEFAULT_STROKE_WIDTH);
+
+    }
+
+    void setResolution(int resolution) {
+        mResolution = getValidResolution(resolution);
+    }
+
+    void setFill(Paint.Style fill) {
         mPaint.setStyle(fill);
+    }
+
+    public void setColor(int color) {
         mPaint.setColor(color);
     }
 
     private int getValidResolution(int resolution) {
         return (resolution < FractalPresenter.MIN_RES) ? FractalPresenter.MIN_RES : resolution;
-    }
-
-    public int getResolution() {
-        return mResolution;
     }
 
     public int getShapesDrawnCounter() {
@@ -49,6 +57,6 @@ public abstract class FractalPainter {
         mShapesDrawnLimit = value;
     }
 
-    protected abstract void drawFractal(Canvas c, int width, int height);
+    public abstract void drawFractal(Canvas c, int width, int height);
 
 }
