@@ -3,12 +3,12 @@ package com.mvp.fractal.hadar.danny.fractalmvp.fractal.painters;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.mvp.fractal.hadar.danny.fractalmvp.fractal.FractalPresenter;
+import com.mvp.fractal.hadar.danny.fractalmvp.fractal.utils.FractalAppearanceUtils;
 
 public abstract class FractalPainter {
     private static final int DEFAULT_STROKE_WIDTH = 4;
 
-    int mResolution;
+    private int mResolution;
     final Paint mPaint;
     /**
      * This stupid int holds the number of shapes drawn so far
@@ -17,7 +17,7 @@ public abstract class FractalPainter {
     /**
      * This stupid int holds the current limit for shapes to be drawn
      */
-    int mShapesDrawnLimit;
+    private int mShapesDrawnLimit;
 
     FractalPainter() {
         mPaint = new Paint();
@@ -38,7 +38,7 @@ public abstract class FractalPainter {
     }
 
     private int getValidResolution(int resolution) {
-        return (resolution < FractalPresenter.MIN_RES) ? FractalPresenter.MIN_RES : resolution;
+        return (resolution < FractalAppearanceUtils.RESOLUTION_MAX) ? FractalAppearanceUtils.RESOLUTION_MAX : resolution;
     }
 
     public int getShapesDrawnCounter() {
@@ -59,4 +59,7 @@ public abstract class FractalPainter {
 
     public abstract void drawFractal(Canvas c, int width, int height);
 
+    boolean drawAnotherShape(int length) {
+        return mShapesDrawnCounter < mShapesDrawnLimit && length > mResolution;
+    }
 }

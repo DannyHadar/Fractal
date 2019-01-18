@@ -18,7 +18,7 @@ public class SquareFractal extends FractalPainter {
     private void drawSquare(Canvas c, int left, int top, int right, int bottom, int side) {
         int newRectSide = side / 2;
 
-        if (mShapesDrawnCounter < mShapesDrawnLimit && newRectSide > mResolution) {
+        if (drawAnotherShape(newRectSide)) {
             c.drawRect(left, top, right, bottom, mPaint);
             mShapesDrawnCounter++;
             // left square

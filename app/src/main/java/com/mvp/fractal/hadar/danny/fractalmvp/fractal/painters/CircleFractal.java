@@ -13,7 +13,7 @@ public class CircleFractal extends FractalPainter {
         int newRadius = radius / 2;
         int radiusAndNewRadius = radius + newRadius;
 
-        if (mShapesDrawnCounter < mShapesDrawnLimit && newRadius > mResolution) {
+        if (drawAnotherShape(newRadius)) {
             c.drawCircle(cX, cY, radius, mPaint);
             mShapesDrawnCounter++;
             // left circle
