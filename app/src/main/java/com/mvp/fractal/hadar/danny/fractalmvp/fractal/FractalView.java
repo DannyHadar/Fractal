@@ -9,8 +9,6 @@ import android.view.View;
 import com.mvp.fractal.hadar.danny.fractalmvp.fractal.painters.FractalPainter;
 
 public class FractalView extends View {
-
-    public static final String TAG = FractalView.class.getSimpleName();
     private FractalPainter mFractal;
 
     public FractalView(Context context, @Nullable AttributeSet attrs) {

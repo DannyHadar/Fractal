@@ -8,7 +8,8 @@ import com.mvp.fractal.hadar.danny.fractalmvp.fractal.utils.FractalAppearanceUti
 public abstract class FractalPainter {
     private static final int DEFAULT_STROKE_WIDTH = 4;
 
-    private int mResolution;
+    int mResolution;
+
     final Paint mPaint;
     /**
      * This stupid int holds the number of shapes drawn so far
@@ -17,13 +18,15 @@ public abstract class FractalPainter {
     /**
      * This stupid int holds the current limit for shapes to be drawn
      */
-    private int mShapesDrawnLimit;
+    int mShapesDrawnLimit;
 
     FractalPainter() {
         mPaint = new Paint();
         mPaint.setStrokeWidth(DEFAULT_STROKE_WIDTH);
 
     }
+
+    public abstract void drawFractal(Canvas c, int width, int height);
 
     void setResolution(int resolution) {
         mResolution = getValidResolution(resolution);
@@ -37,10 +40,6 @@ public abstract class FractalPainter {
         mPaint.setColor(color);
     }
 
-    private int getValidResolution(int resolution) {
-        return (resolution < FractalAppearanceUtils.RESOLUTION_MAX) ? FractalAppearanceUtils.RESOLUTION_MAX : resolution;
-    }
-
     public int getShapesDrawnCounter() {
         return mShapesDrawnCounter;
     }
@@ -49,17 +48,23 @@ public abstract class FractalPainter {
         return mShapesDrawnLimit;
     }
 
-    public void setShapesDrawnCounter(int value) {
-        mShapesDrawnCounter = value;
+    public void setShapesDrawnCounter(int counter) {
+        mShapesDrawnCounter = counter;
     }
 
-    public void setShapesDrawnLimit(int value) {
-        mShapesDrawnLimit = value;
-    }
-
-    public abstract void drawFractal(Canvas c, int width, int height);
-
-    boolean drawAnotherShape(int length) {
+    boolean drawingPermitted(int length) {
         return mShapesDrawnCounter < mShapesDrawnLimit && length > mResolution;
+    }
+
+    public void setShapesDrawnLimit(int limit) {
+        mShapesDrawnLimit = limit;
+    }
+
+    public void incrementShapesDrawnLimit() {
+        mShapesDrawnLimit++;
+    }
+
+    private int getValidResolution(int resolution) {
+        return (resolution < FractalAppearanceUtils.RESOLUTION_MAX) ? FractalAppearanceUtils.RESOLUTION_MAX : resolution;
     }
 }

@@ -30,50 +30,50 @@ public class TriangleFractal extends FractalPainter {
         int newWidth = width / 2;
         int newHeight = height / 2;
 
-        int[][] dX = new int[3][3];
-        int[][] dY = new int[3][3];
+        int[][] xValues = new int[3][3];
+        int[][] yValues = new int[3][3];
 
         // X values for top shape
-        dX[0][0] = x[0] + newWidth / 2;
-        dX[0][1] = x[1] - newWidth / 2;
-        dX[0][2] = x[0] + newWidth;
+        xValues[0][0] = x[0] + newWidth / 2;
+        xValues[0][1] = x[1] - newWidth / 2;
+        xValues[0][2] = x[0] + newWidth;
         // Y values for top shape
-        dY[0][0] = y[0] - newHeight;
-        dY[0][1] = y[0] - newHeight;
-        dY[0][2] = y[0];
+        yValues[0][0] = y[0] - newHeight;
+        yValues[0][1] = y[0] - newHeight;
+        yValues[0][2] = y[0];
         // X values for right shape
-        dX[1][0] = dX[0][1];
-        dX[1][1] = dX[0][1] + newWidth;
-        dX[1][2] = x[1];
+        xValues[1][0] = xValues[0][1];
+        xValues[1][1] = xValues[0][1] + newWidth;
+        xValues[1][2] = x[1];
         // Y values for right shape
-        dY[1][0] = y[0] + newHeight;
-        dY[1][1] = y[0] + newHeight;
-        dY[1][2] = y[0] + height;
+        yValues[1][0] = y[0] + newHeight;
+        yValues[1][1] = y[0] + newHeight;
+        yValues[1][2] = y[0] + height;
         // X values for left shape
-        dX[2][0] = x[0] - newWidth / 2;
-        dX[2][1] = x[0] + newWidth / 2;
-        dX[2][2] = x[0];
+        xValues[2][0] = x[0] - newWidth / 2;
+        xValues[2][1] = x[0] + newWidth / 2;
+        xValues[2][2] = x[0];
         // Y values for left shape
-        dY[2][0] = dY[1][0];
-        dY[2][1] = dY[1][1];
-        dY[2][2] = dY[1][2];
+        yValues[2][0] = yValues[1][0];
+        yValues[2][1] = yValues[1][1];
+        yValues[2][2] = yValues[1][2];
 
-        if (drawAnotherShape((newWidth * 2) / 3)) {
+        if (drawingPermitted((width) / 3)) {
             drawTriangle(c, x, y);
             mShapesDrawnCounter++;
             // left triangle
-            drawFractal(c, dX[2], dY[2], newWidth, newHeight);
+            drawFractal(c, xValues[2], yValues[2], newWidth, newHeight);
             // top triangle
-            drawFractal(c, dX[0], dY[0], newWidth, newHeight);
+            drawFractal(c, xValues[0], yValues[0], newWidth, newHeight);
             // right triangle
-            drawFractal(c, dX[1], dY[1], newWidth, newHeight);
+            drawFractal(c, xValues[1], yValues[1], newWidth, newHeight);
         }
     }
 
     /**
      * Because of android doesn't supply a method for drawing polygon
      * we have to draw 3 lines in order to show a triangle
-     * taking to arrays of points x and y matching in indices
+     * taking to arrays of points x,y that match in their indices
      * to create 3 points and drawing 3 lines between them
      *
      * @param c - For drawing

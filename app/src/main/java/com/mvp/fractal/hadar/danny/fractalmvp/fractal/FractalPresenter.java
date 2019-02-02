@@ -2,6 +2,7 @@ package com.mvp.fractal.hadar.danny.fractalmvp.fractal;
 
 import android.graphics.Paint;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.mvp.fractal.hadar.danny.fractalmvp.AbsPresenter;
 import com.mvp.fractal.hadar.danny.fractalmvp.fractal.painters.FractalPainter;
@@ -13,6 +14,8 @@ public class FractalPresenter extends AbsPresenter<FractalContract.View> impleme
 
     private volatile boolean mKeepDrawing;
 
+    private DrawingTask mTask;
+
     @Override
     public void takeView(FractalContract.View view) {
         attach(view);
@@ -20,6 +23,9 @@ public class FractalPresenter extends AbsPresenter<FractalContract.View> impleme
 
     @Override
     public void dropView() {
+        if (mTask != null) {
+            mTask.cancel(true);
+        }
         detach();
     }
 
@@ -39,21 +45,18 @@ public class FractalPresenter extends AbsPresenter<FractalContract.View> impleme
     }
 
     private void startDrawing() {
-        DrawingTask task = new DrawingTask();
-        task.execute();
+        mTask = new DrawingTask();
+        mTask.execute();
     }
 
     private void addShape() {
         mFractal.setShapesDrawnCounter(0);
-        mFractal.setShapesDrawnLimit(mFractal.getShapesDrawnLimit() + 1);
-
+        mFractal.incrementShapesDrawnLimit();
         mView.updateDrawing();
-
-        mKeepDrawing = mFractal.getShapesDrawnCounter() <= mFractal.getShapesDrawnLimit();
     }
 
     private class DrawingTask extends AsyncTask<Void, Void, Void> {
-        private static final int SLEEP_BETWEEN_DRAWING = 50;
+        private static final int SLEEP_BETWEEN_DRAWING = 66;
 
         @Override
         protected void onPreExecute() {
@@ -65,13 +68,15 @@ public class FractalPresenter extends AbsPresenter<FractalContract.View> impleme
 
         @Override
         protected Void doInBackground(Void... params) {
-            while (mKeepDrawing) {
-                try {
-                    Thread.sleep(SLEEP_BETWEEN_DRAWING);
+            try {
+                for (int tempCounter = 0; mKeepDrawing && !isCancelled(); tempCounter = mFractal.getShapesDrawnCounter()) {
                     publishProgress();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.sleep(SLEEP_BETWEEN_DRAWING);
+                    // If those two are the same then there aren't more available shapes to draw
+                    mKeepDrawing = tempCounter != mFractal.getShapesDrawnCounter();
                 }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
             return null;
         }
